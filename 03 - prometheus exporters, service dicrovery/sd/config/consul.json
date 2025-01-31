@@ -1,0 +1,13 @@
+{
+  "service": {
+    "name": "consul",
+    "id": "consul",
+    "address": "consul",
+    "port": 8500,
+    "check": {
+      "http": "http://consul:8500/metrics",
+      "interval": "10s",
+      "timeout": "5s"
+    }
+  }
+}
