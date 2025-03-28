@@ -1,0 +1,28 @@
+apiVersion: kafka.strimzi.io/v1beta1
+kind: KafkaTopic
+metadata:
+  name: XXXXXXXXXXXXXXXXXXXX-kub
+  labels:
+    strimzi.io/cluster: anzu
+spec:
+  topicName: XXXXXXXXXXXXXXXXXXXX-kaf
+  partitions: 12
+  replicas: 1
+  config:
+    cleanup.policy: delete
+    retention.ms: 172800000
+---
+apiVersion: kafka.strimzi.io/v1beta1
+kind: KafkaTopic
+metadata:
+  name: YYYYYYYYYYYYYYYYYYYYYYYYYY-kub
+  labels:
+    strimzi.io/cluster: anzu
+spec:
+  topicName: YYYYYYYYYYYYYYYYYYYYYYYYYY-kaf
+  partitions: 12
+  replicas: 1
+  config:
+    cleanup.policy: delete
+    retention.ms: 172800000
+---

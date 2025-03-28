@@ -1,0 +1,22 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: anzu-kafka-cert
+spec:
+  isCA: true
+  subject:
+    organizations:
+      - Anzu
+  duration: 26280h # 3 years
+  commonName: Anzu Kafka
+  issuerRef:
+    kind: Issuer
+    name: selfsigned-issuer
+  secretName: anzu-kafka-cert
