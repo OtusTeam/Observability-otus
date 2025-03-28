@@ -1,0 +1,52 @@
+#prometheusOperator:
+#  logLevel: debug
+
+nodeExporter:
+  serviceMonitor:
+    relabelings:
+     - sourceLabels: [__meta_kubernetes_pod_node_name]
+       separator: ;
+       regex: ^(.*)$
+       targetLabel: nodename
+       replacement: $1
+       action: replace
+
+prometheus:
+    prometheusSpec:
+        retention: 31d
+        resources:
+          requests:
+            cpu: '0.5'
+            memory: 2Gi
+        storageSpec:
+            volumeClaimTemplate:
+                spec:
+                    accessModes: ["ReadWriteOnce"]
+                    storageClassName: managed
+                    resources:
+                        requests:
+                            storage: 4Gi
+grafana:
+  grafana.ini:
+    server:
+      root_url: http://grafana.otus
+  sidecar:
+    dashboards:
+      enabled: true
+      searchNamespace: ALL
+      disableDelete: false
+      allowUiUpdates: true
+#  plugins:
+#    - btplc-status-dot-panel
+#    - grafana-worldmap-panel
+#    - grafana-piechart-panel
+#    - vertamedia-clickhouse-datasource
+  adminPassword: "N8HGN2Mmu2e8"
+  persistence:
+    enabled: true
+    storageClassName: managed
+    accessModes: ["ReadWriteOnce"]
+    size: 4Gi
+
+kubeProxy:
+    enabled: false

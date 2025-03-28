@@ -1,0 +1,30 @@
+
+# Установить мониторинг
+
+kubectl create namespace monitoring
+helm install otus --namespace monitoring \
+  --values ./helm/prometheus-stack.yaml \
+  prometheus-community/kube-prometheus-stack
+
+# Попасть в графану и прометей
+
+kubectl --namespace monitoring port-forward service/otus-grafana 3000:80
+kubectl --namespace monitoring port-forward service/otus-kube-prometheus-stack-prometheus 9091:9090
+  
+# Установить Nginx
+  
+kubectl create namespace ingress-nginx
+helm upgrade --install gateway --namespace ingress-nginx \
+  --values ./helm/nginx-config.yaml \
+  ingress-nginx/ingress-nginx 
+  
+# --version ${ingress_nginx_version} !
+
+
+# Установить Loki и promatail
+
+https://grafana.com/docs/loki/latest/installation/
+
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+helm upgrade --install loki --namespace=loki-stack grafana/loki-stack
