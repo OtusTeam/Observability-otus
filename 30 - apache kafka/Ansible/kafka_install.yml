@@ -1,0 +1,8 @@
+---
+- hosts: kafka
+  become: true
+  gather_facts: false
+  roles:
+    - role: kafka
+      tags:
+        - kafka

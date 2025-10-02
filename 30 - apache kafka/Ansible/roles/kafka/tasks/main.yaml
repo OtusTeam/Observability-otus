@@ -1,0 +1,10 @@
+---
+- name: Install openjdk
+  ansible.builtin.import_tasks: install_openjdk.yaml
+  tags:
+    - java
+
+- name: Install kafka
+  ansible.builtin.import_tasks: install_kafka.yaml
+  tags:
+    - kafka

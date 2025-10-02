@@ -1,0 +1,28 @@
+data_dir: "/var/lib/vector"
+api:
+  enabled: true
+  address: "0.0.0.0:8686"
+
+sources:
+  my_source_id:
+    type: kafka
+    bootstrap_servers: 172.16.201.31:9092,172.16.201.32:9092,172.16.201.33:9092
+    group_id: vector-logs
+    topics:
+      - logs
+sinks:
+  es_cluster:
+    inputs:
+      - "my_source_id"       # only take sampled data
+    type: "elasticsearch"
+    endpoints:
+      - "https://d00os0001:9200"
+    api_version: v7
+    auth:
+      strategy: basic
+      user: fluentbit
+      password: ""
+    tls:
+      verify_certificate: false
+    bulk:
+      index: "vector-%Y-%m-%d" # daily indices`

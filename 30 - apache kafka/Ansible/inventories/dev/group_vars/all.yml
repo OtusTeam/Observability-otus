@@ -1,0 +1,27 @@
+os_cluster_name: demo-dev-cluster
+os_download_url: https://artifacts.opensearch.org/releases/bundle/opensearch
+os_version: "2.19.1"
+os_dashboards_version: "2.19.1"
+domain_name: vsk.a7n.ru
+xms_value: 4
+xmx_value: 4
+cluster_type: multi-node
+os_user: opensearch
+os_dashboards_user: opensearch-dashboards
+cert_valid_days: 730
+auth_type: internal
+copy_custom_security_configs: true
+custom_security_plugin_configs:
+  - configs/opensearch/{{env}}/tenants.yml
+  - configs/opensearch/{{env}}/roles.yml
+  - configs/opensearch/{{env}}/roles_mapping.yml
+  - configs/opensearch/{{env}}/internal_users.yml
+
+iac_enable: true
+
+
+admin_password: "{{ lookup('password', '{{playbook_dir}}/secrets/opensearch/{{env}}/admin.opensearch chars=ascii_letters,digits length=16') }}"
+kibanaserver_password: "{{ lookup('password', '{{playbook_dir}}/secrets/opensearch/{{env}}/kibanaserver.opensearch chars=ascii_letters,digits length=16') }}"
+logstash_password: "{{ lookup('password', '{{playbook_dir}}/secrets/opensearch/{{env}}/logstash.opensearch chars=ascii_letters,digits length=16') }}"
+fluentbit_password: "{{ lookup('password', '{{playbook_dir}}/secrets/opensearch/{{env}}/fluentbit.opensearch chars=ascii_letters,digits length=16') }}"
+readall_password: "{{ lookup('password', '{{playbook_dir}}/secrets/opensearch/{{env}}/readall.opensearch chars=ascii_letters,digits length=16') }}"

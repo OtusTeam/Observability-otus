@@ -1,0 +1,21 @@
+[kafka]
+d00kf0001 kafka_node_id=1 kafka_process_roles=broker,controller
+d00kf0002 kafka_node_id=2 kafka_process_roles=broker,controller
+d00kf0003 kafka_node_id=3 kafka_process_roles=broker,controller
+
+
+[os-cluster]
+d00os0001 roles=data,master attr=hot
+d00os0002 roles=data,ingest attr=warm
+d00os0003 roles=data,ingest attr=cold
+
+[master]
+d00os0001
+
+[dashboards]
+d00dash0001
+
+[all:vars]
+env=dev
+ansible_user=ansible
+ansible_ssh_common_args=' -o StrictHostKeyChecking=no'

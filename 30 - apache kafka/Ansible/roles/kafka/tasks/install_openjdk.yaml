@@ -1,0 +1,6 @@
+---
+- name: Kafka | Install OpenJDK
+  ansible.builtin.package:
+    name:
+      - java-{{ kafka_openjdk_version }}-openjdk
+    state: present
